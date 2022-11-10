@@ -30,6 +30,7 @@ variable "firewall_rules" { type = list(list(string)) }
 variable "subnet_id" { type = string }
 variable "private_endpoint_subnet_id" { type = string }
 variable "private_dns_zone_ids" { type = list(string) }
+variable "redis_version" { type = string }
 
 terraform {
   required_providers {
@@ -87,6 +88,7 @@ resource "azurerm_redis_cache" "redis" {
   resource_group_name           = local.resource_group
   minimum_tls_version           = length(var.tls_min_version) == 0 ? "1.2" : var.tls_min_version
   public_network_access_enabled = local.private_endpoint_enabled ? false : true
+  redis_version                 = var.redis_version
   tags                          = var.labels
   redis_configuration {
     maxmemory_policy = length(var.maxmemory_policy) == 0 ? "allkeys-lru" : var.maxmemory_policy

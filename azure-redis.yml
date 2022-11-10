@@ -186,6 +186,10 @@ provision:
     type: string
     details: Max memory eviction policy. Possible values are volatile-lru (default), allkeys-lru, volatile-random, allkeys-random, volatile-ttl, noeviction
     default: volatile-lru
+  - field_name: redis_version
+    type: string
+    details: Redis version. Only major version needed. Valid values 4, 6.
+    default: 4
   computed_inputs:
   - name: labels
     default: ${json.marshal(request.default_labels)}
